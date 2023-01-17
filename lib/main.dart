@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: '오늘의 운세',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: '오늘의 운세'),
     );
   }
 }
@@ -96,11 +99,19 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              '오늘 당신의 운세는?',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            const SizedBox(
+              height: 10,
+            ),
+            Image.asset(
+              'assets/images/ez.gif',
+              width: 100,
+              height: 100,
+            ),
+            const SizedBox(
+              height: 10,
             ),
             FloatingActionButton(
               onPressed: () {
@@ -109,39 +120,56 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(builder: (context) => SecondRoute()),
                 );
               },
-              tooltip: 'NextPage',
+              tooltip: '운세 보러 가기',
               child: const Icon(Icons.arrow_forward_ios),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
 }
 
 class SecondRoute extends StatelessWidget {
-  const SecondRoute({Key? key}) : super(key: key);
+  SecondRoute({Key? key}) : super(key: key);
+
+  List<String> imageList = [
+    "assets/images/angry.png",
+    "assets/images/cool.png",
+    "assets/images/crying.png",
+    "assets/images/emoji.png",
+    "assets/images/emoji-2.png",
+    "assets/images/emoji-3.png",
+    "assets/images/emoji-4.png",
+    "assets/images/party.png",
+    "assets/images/poop.png",
+    "assets/images/shocked.png",
+    "assets/images/thinking.png"
+  ];
+
+  getImage() => imageList[Random().nextInt(imageList.length)];
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Text('🎉'),
-          FloatingActionButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            tooltip: 'GoBack',
-            child: const Icon(Icons.arrow_back_ios),
-          ),
-        ],
-      )
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          getImage(),
+          width: 100,
+          height: 100,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          tooltip: '다시하기',
+          child: const Icon(Icons.arrow_back_ios_new_outlined),
+        ),
+      ],
     );
   }
 }
