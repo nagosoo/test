@@ -102,6 +102,16 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SecondRoute()),
+                );
+              },
+              tooltip: 'NextPage',
+              child: const Icon(Icons.arrow_forward_ios),
+            ),
           ],
         ),
       ),
@@ -109,7 +119,29 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Text('🎉'),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            tooltip: 'GoBack',
+            child: const Icon(Icons.arrow_back_ios),
+          ),
+        ],
+      )
     );
   }
 }
